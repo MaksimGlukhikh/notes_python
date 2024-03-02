@@ -1,12 +1,15 @@
 import json
 import os
 from datetime import datetime
+import secrets
+
 
 # Функция для создания новой заметки
 def create_note():
+    
     notes = load_notes()
     new_note = {}
-    new_note["id"] = len(notes) + 1
+    new_note["id"] = secrets.randbelow(10000)
     new_note["title"] = input("Введите заголовок заметки: ")
     new_note["body"] = input("Введите текст заметки: ")
     new_note["date"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
