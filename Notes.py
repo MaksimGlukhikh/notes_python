@@ -6,9 +6,11 @@ while True:
     print("\nМеню:")
     print("1. Создать заметку")
     print("2. Показать список всех заметок")
-    print("3. Редактировать заметку")
-    print("4. Удалить заметку")
-    print("5. Выйти")
+    print("3. Поиск заметки")
+    print("4. Удаление заметки")
+    print("5. Редактирование заметки")
+    print("6. Выборка заметок за конкретную дату")
+    print("7. Выйти")
 
     choice = input("Выберите действие: ")
 
@@ -17,12 +19,22 @@ while True:
     elif choice == "2":
         Lib.list_notes()
     elif choice == "3":
-        note_id = int(input("Введите id заметки для редактирования: "))
-        Lib.edit_note(note_id)
+        note_title = input("Введите заголовок заметки : ")
+        Lib.search_note(note_title)
     elif choice == "4":
-        note_id = int(input("Введите id заметки для удаления: "))
+        note_title = input("Введите название заметки для удаления: ")
+        Lib.search_note(note_title)
+        note_id = int(input("Выберите id заметки которую хотите удалить: "))
         Lib.delete_note(note_id)
     elif choice == "5":
+        note_title = input("Введите название заметки для редактирования: ")
+        Lib.search_note(note_title)
+        note_id = int(input("Выберите id заметки которую хотите отредактировать: "))
+        Lib.edit_note(note_id)
+    elif choice == "6":
+        current_date = input("За какую дату хотит посмотреть заметки: ")
+        Lib.view_notes(current_date)
+    elif choice == "7":
         break
     else:
         print("Некорректный выбор. Попробуйте еще раз.")

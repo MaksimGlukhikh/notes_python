@@ -1,18 +1,20 @@
 import json
 import os
 from datetime import datetime
+import datetime
 import secrets
+
 
 
 # Функция для создания новой заметки
 def create_note():
-    
+    print(f" \n")
     notes = load_notes()
     new_note = {}
     new_note["id"] = secrets.randbelow(10000)
     new_note["title"] = input("Введите заголовок заметки: ")
     new_note["body"] = input("Введите текст заметки: ")
-    new_note["date"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    new_note["date"] = datetime.datetime.now().strftime("%Y-%m-%d")
     notes.append(new_note)
     save_notes(notes)
     print("Заметка успешно создана!")
@@ -34,6 +36,7 @@ def save_notes(notes):
 
 # Функция для вывода списка всех заметок
 def list_notes():
+    print(f" \n")
     notes = load_notes()
     for note in notes:
         print(f"{note['id']}. {note['title']} - {note['date']}")
@@ -41,12 +44,13 @@ def list_notes():
 
 # Функция для редактирования заметки
 def edit_note(note_id):
+    print(f" \n")
     notes = load_notes()
     for note in notes:
         if note["id"] == note_id:
             note["title"] = input("Введите новый заголовок заметки: ")
             note["body"] = input("Введите новый текст заметки: ")
-            note["date"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            note["date"] = datetime.datetime.now().strftime("%Y-%m-%d")
             save_notes(notes)
             print("Заметка успешно отредактирована!")
             return
@@ -55,7 +59,35 @@ def edit_note(note_id):
 
 # Функция для удаления заметки
 def delete_note(note_id):
+    print(f" \n")
     notes = load_notes()
     notes = [note for note in notes if note["id"] != note_id]
     save_notes(notes)
     print("Заметка успешно удалена!")
+
+    
+# Функция поиска заметки по названию
+def search_note(note_title):
+    print(f" \n")
+    notes = load_notes()
+    note_found = False
+    for note in notes:
+        if note["title"] == note_title:
+            print(f"id:{note['id']}. {note['title']} - {note['date']}")
+            note_found = True
+    if not note_found:
+        print("Заметка с таким названием не найдена.")
+        
+# Функция выборки заметок за конкретную дату
+def view_notes(current_date):
+    print(f" \n")
+    notes = load_notes()
+    current_date = datetime.datetime.strptime(current_date, '%Y-%m-%d').date()
+    found_notes = False
+    for note in notes:
+        date_of_creation = datetime.datetime.strptime(note['date'], '%Y-%m-%d').date()
+        if current_date == date_of_creation:
+            print(f"id: {note['id']}\nЗаголовок: {note['title']}\nСодержание: {note['body']}\nСоздана: {note['date']}\n---")
+            found_notes = True
+    if not found_notes:
+        print("Заметок за выбранную дату нет!")
