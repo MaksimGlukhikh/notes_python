@@ -73,7 +73,7 @@ def search_note(note_title):
     note_found = False
     for note in notes:
         if note["title"] == note_title:
-            print(f"id:{note['id']}. {note['title']} - {note['date']}")
+            print(f"id: {note['id']}\nЗаголовок: {note['title']}\nСоздана: {note['date']}\n")
             note_found = True
     if not note_found:
         print("Заметка с таким названием не найдена.")
@@ -87,7 +87,18 @@ def view_notes(current_date):
     for note in notes:
         date_of_creation = datetime.datetime.strptime(note['date'], '%Y-%m-%d').date()
         if current_date == date_of_creation:
-            print(f"id: {note['id']}\nЗаголовок: {note['title']}\nСодержание: {note['body']}\nСоздана: {note['date']}\n---")
+            print(f"id: {note['id']}\nЗаголовок: {note['title']}\nСодержание: {note['body']}\nСоздана: {note['date']}\n")
             found_notes = True
     if not found_notes:
         print("Заметок за выбранную дату нет!")
+        
+def review_notes(note_title, note_id):
+    print(f" \n")
+    notes = load_notes()
+    note_found = False
+    for note in notes:
+        if note["title"] == note_title and note["id"] == note_id:
+            print(f"id: {note['id']}\nЗаголовок: {note['title']}\nСодержание: {note['body']}\nСоздана: {note['date']}\n")
+            note_found = True
+    if not note_found:
+        print("Заметка с таким названием не найдена.")
