@@ -10,7 +10,6 @@ while True:
     print("4. Удаление заметки")
     print("5. Редактирование заметки")
     print("6. Выборка заметок за конкретную дату")
-    #print("7. Просмотр заметки")
     print("7. Выйти")
 
     choice = input("Выберите действие: ")
@@ -21,6 +20,7 @@ while True:
         Lib.list_notes()
     elif choice == "3":
         note_title = input("Введите заголовок заметки : ")
+        note_title = note_title.lower()
         Lib.search_note(note_title)
         while True:
             command = input('Хотите посмотреть заметку y/n: ')
@@ -33,16 +33,18 @@ while True:
                 break
     elif choice == "4":
         note_title = input("Введите название заметки для удаления: ")
+        note_title = note_title.lower()
         Lib.search_note(note_title)
         note_id = int(input("Выберите id заметки которую хотите удалить: "))
         Lib.delete_note(note_id)
     elif choice == "5":
         note_title = input("Введите название заметки для редактирования: ")
+        note_title = note_title.lower()
         Lib.search_note(note_title)
         note_id = int(input("Выберите id заметки которую хотите отредактировать: "))
         Lib.edit_note(note_id)
     elif choice == "6":
-        current_date = input("За какую дату хотите посмотреть заметки: ")
+        current_date = input("За какую дату хотите посмотреть заметки в формате yyyy-mm-dd: ")
         Lib.view_notes(current_date)
     elif choice == "7":
         break

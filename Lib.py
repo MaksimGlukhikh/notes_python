@@ -13,7 +13,9 @@ def create_note():
     new_note = {}
     new_note["id"] = secrets.randbelow(10000)
     new_note["title"] = input("Введите заголовок заметки: ")
+    new_note["title"] = new_note["title"].lower()
     new_note["body"] = input("Введите текст заметки: ")
+    new_note["body"] = new_note["body"].lower()
     new_note["date"] = datetime.datetime.now().strftime("%Y-%m-%d")
     notes.append(new_note)
     save_notes(notes)
@@ -49,7 +51,9 @@ def edit_note(note_id):
     for note in notes:
         if note["id"] == note_id:
             note["title"] = input("Введите новый заголовок заметки: ")
+            note["title"] = note["title"].lower()
             note["body"] = input("Введите новый текст заметки: ")
+            note["body"] = note["body"].lower()
             note["date"] = datetime.datetime.now().strftime("%Y-%m-%d")
             save_notes(notes)
             print("Заметка успешно отредактирована!")
@@ -100,5 +104,6 @@ def review_notes(note_title, note_id):
         if note["title"] == note_title and note["id"] == note_id:
             print(f"id: {note['id']}\nЗаголовок: {note['title']}\nСодержание: {note['body']}\nСоздана: {note['date']}\n")
             note_found = True
+            input('Для возврата в основное меню нажмите Enter')
     if not note_found:
         print("Заметка с таким названием не найдена.")
